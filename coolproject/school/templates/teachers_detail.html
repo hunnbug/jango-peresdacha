@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Учитель: {{ teacher }}</title>
+</head>
+<body>
+    <h1>Учитель: {{ teacher }}</h1>
+    {% if teacher.photo %}
+        <img src="{{ teacher.photo.url }}" alt="{{ teacher }}" width="200">
+    {% endif %}
+    
+    <p><strong>ID:</strong> {{ teacher.teacher_id }}</p>
+    <p><strong>ФИО:</strong> {{ teacher.surname }} {{ teacher.first_name }} {{ teacher.last_name }}</p>
+    <p><strong>Дата рождения:</strong> {{ teacher.date_of_birth }}</p>
+    <p><strong>Телефон:</strong> {{ teacher.phone }}</p>
+    <p><strong>Email:</strong> {{ teacher.email }}</p>
+    <p><strong>Предмет:</strong> {{ teacher.subject|default:"Не назначен" }}</p>
+    
+    <h2>Классный руководитель:</h2>
+    <ul>
+    {% for class in teacher.classes.all %}
+        <li>{{ class }}</li>
+    {% empty %}
+        <li>Не является классным руководителем</li>
+    {% endfor %}
+    </ul>
+    
+    <a href="{% url 'teacher_list' %}">↩️ Назад к списку</a>
+    <a href="{% url 'info' %}">🏠 На главную</a>
+</body>
+</html>

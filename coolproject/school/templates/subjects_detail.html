@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Предмет: {{ subject.name }}</title>
+</head>
+<body>
+    <h1>Предмет: {{ subject.name }}</h1>
+    {% if subject.image %}
+        <img src="{{ subject.image.url }}" alt="{{ subject.name }}" width="200">
+    {% endif %}
+    
+    <h2>Учителя:</h2>
+    <ul>
+    {% for teacher in subject.teachers.all %}
+        <li>{{ teacher }}</li>
+    {% empty %}
+        <li>Нет учителей</li>
+    {% endfor %}
+    </ul>
+    
+    <a href="{% url 'subject_list' %}">↩️ Назад к списку</a>
+    <a href="{% url 'info' %}">🏠 На главную</a>
+</body>
+</html>

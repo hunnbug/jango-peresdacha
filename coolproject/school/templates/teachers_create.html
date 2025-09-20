@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавить учителя</title>
+</head>
+<body>
+    <h1>Добавить учителя</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">💾 Сохранить</button>
+    </form>
+    <a href="{% url 'teacher_list' %}">↩️ Назад к списку</a>
+</body>
+</html>

@@ -1,0 +1,88 @@
+{% block title %}{{ class_group.grade }}{{ class_group.letter }} - Детали класса{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Класс: {{ class_group.grade }}{{ class_group.letter }}</h1>
+        <div class="btn-group">
+            <a href="{% url 'class_group_update' class_group.pk %}" class="btn btn-secondary">
+                <i class="bi bi-pencil"></i> Изменить
+            </a>
+            <a href="{% url 'class_group_delete' class_group.pk %}" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Удалить
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Информация о классе</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th width="40%">Класс:</th>
+                            <td>{{ class_group.get_grade_display }}{{ class_group.letter }}</td>
+                        </tr>
+                        <tr>
+                            <th>Классный руководитель:</th>
+                            <td>
+                                {% if class_group.class_teacher %}
+                                    {{ class_group.class_teacher.get_full_name }}
+                                {% else %}
+                                    <span class="text-muted">Не назначен</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Кабинет:</th>
+                            <td>
+                                {% if class_group.room_number %}
+                                    {{ class_group.room_number }}
+                                {% else %}
+                                    <span class="text-muted">Не указан</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Ученики класса</h5>
+                </div>
+                <div class="card-body">
+                    {% if class_group.student_set.all %}
+                    <div class="list-group">
+                        {% for student in class_group.student_set.all %}
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">{{ student.get_full_name }}</h6>
+                                    <small class="text-muted">ID: {{ student.id }}</small>
+                                </div>
+                                <span class="badge bg-primary">Ученик</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted">В этом классе пока нет учеников.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a href="{% url 'class_group_list' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Назад к списку
+        </a>
+    </div>
+</div>
+{% endblock %}

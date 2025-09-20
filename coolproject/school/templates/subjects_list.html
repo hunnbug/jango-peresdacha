@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список предметов</title>
+</head>
+<body>
+    <h1>Список предметов</h1>
+    <a href="{% url 'subject_create' %}">➕ Добавить предмет</a>
+    <ul>
+    {% for subject in subjects %}
+        <li>
+            {% if subject.image %}
+                <img src="{{ subject.image.url }}" alt="{{ subject.name }}" width="50">
+            {% endif %}
+            {{ subject.name }}
+            <a href="{% url 'subject_detail' subject.pk %}">👁️ Просмотр</a>
+            <a href="{% url 'subject_update' subject.pk %}">✏️ Редактировать</a>
+            <a href="{% url 'subject_delete' subject.pk %}">🗑️ Удалить</a>
+        </li>
+    {% empty %}
+        <li>Нет предметов</li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'info' %}">🏠 На главную</a>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Школьная система - Главная</title>
+</head>
+<body>
+    <h1>Школьная информационная система</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'subject_list' %}">📚 Предметы</a></li>
+            <li><a href="{% url 'teacher_list' %}">👨‍🏫 Учителя</a></li>
+            <li><a href="{% url 'class_group_list' %}">🏫 Классы</a></li>
+            <li><a href="{% url 'student_list' %}">👦 Ученики</a></li>
+            <li><a href="{% url 'schedule_list' %}">📅 Расписание</a></li>
+            <li><a href="{% url 'grade_list' %}">⭐ Оценки</a></li>
+            <li><a href="{% url 'attendance_list' %}">✅ Посещаемость</a></li>
+            <li><a href="{% url 'homework_list' %}">📝 Домашние задания</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

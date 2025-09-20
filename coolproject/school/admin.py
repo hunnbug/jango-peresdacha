@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import Student, Teacher, Subject, Class_group, Grade, Attendance, Homework, Schedule
 
 # Register your models here.
 
@@ -8,30 +8,30 @@ class StudentAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Teacher)
-class StudentAdmin(admin.ModelAdmin):
+class TeacherAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Subject)
-class StudentAdmin(admin.ModelAdmin):
+class SubjectAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Class)
-class StudentAdmin(admin.ModelAdmin):
+@admin.register(Class_group)
+class ClassAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Grade)
-class StudentAdmin(admin.ModelAdmin):
+class GradeAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Attendance)
-class StudentAdmin(admin.ModelAdmin):
+class AttendanceAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Homework)
-class StudentAdmin(admin.ModelAdmin):
+class HomeworkAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Schedule)
-class StudentAdmin(admin.ModelAdmin):
+class ScheduleAdmin(admin.ModelAdmin):
     pass
 
