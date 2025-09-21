@@ -4,6 +4,7 @@ from school.models import Order
 class BasketAddProductForm(forms.Form):
     count = forms.IntegerField(
         min_value=1, 
+        max_value=1,
         initial=1, 
         label='Количество',
         widget=forms.NumberInput(attrs={'class': 'form-control'})

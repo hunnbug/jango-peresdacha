@@ -133,9 +133,13 @@
                         <a href="{% url 'teacher_list' %}" class="btn btn-secondary me-md-2">
                             ❌ Отмена
                         </a>
-                        <button type="submit" class="btn btn-primary">
-                            💾 Сохранить изменения
-                        </button>
+                        {% if perms.school.update_teacher %}
+                            <button type="submit" class="btn btn-primary">
+                                💾 Сохранить изменения
+                            </button>
+                        {% else %}
+                            <p> Вы не можете изменять данные учителей </p>
+                        {% endif %}
                     </div>
                 </form>
             </div>

@@ -24,7 +24,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('info/', school_views.info_view, name='info'),
     path('', school_views.info_view, name='info'),
+
     path('basket/', include('basket.urls')),
+
+    path('login/', school_views.login_user, name='login_page'),
+    path('register/', school_views.registration_user, name='register_page'),
+    path('logout/', school_views.logout_user, name='logout_page'),
 
     path('teachers/', school_views.TeacherListView.as_view(), name='teacher_list'),
     path('teachers/<int:pk>/', school_views.TeacherDetailView.as_view(), name='teacher_detail'),

@@ -9,29 +9,35 @@
             <div class="card-header bg-danger text-white">
                 <h4 class="mb-0">⚠️ Удаление учителя</h4>
             </div>
-            <div class="card-body">
-                <div class="alert alert-warning">
-                    <h5>Вы уверены, что хотите удалить учителя?</h5>
-                    <p class="mb-0"><strong>ФИО:</strong> {{ teacher }}</p>
-                </div>
-                
-                <div class="alert alert-danger">
-                    <strong>Внимание!</strong> Это действие нельзя отменить. 
-                    Все связанные данные будут удалены.
-                </div>
-
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{% url 'teacher_list' %}" class="btn btn-secondary me-md-2">
-                            ❌ Отмена
-                        </a>
-                        <button type="submit" class="btn btn-danger">
-                            🗑️ Удалить учителя
-                        </button>
+            {% if perms.school.delete_teacher %}
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h5>Вы уверены, что хотите удалить учителя?</h5>
+                        <p class="mb-0"><strong>ФИО:</strong> {{ teacher }}</p>
                     </div>
-                </form>
-            </div>
+                    
+                    <div class="alert alert-danger">
+                        <strong>Внимание!</strong> Это действие нельзя отменить. 
+                        Все связанные данные будут удалены.
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'teacher_list' %}" class="btn btn-secondary me-md-2">
+                                ❌ Отмена
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                🗑️ Удалить учителя
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            {% else %}
+                <div class="alert alert-danger">
+                    Вы не можете удалять учителей 
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

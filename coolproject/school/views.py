@@ -1,10 +1,15 @@
-from django.shortcuts import render
-from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from basket.forms import BasketAddProductForm
+from django.contrib.auth import login, logout
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from .forms import RegistrationForm
 from .models import *
 from .forms import *
-from basket.forms import BasketAddProductForm
 
+@login_required
 def info_view(request):
     return render(request, 'info.html')
 
@@ -252,3 +257,41 @@ class HomeworkUpdateView(UpdateView):
     template_name = 'homeworks_update.html'
     context_object_name = 'homework'
     success_url = reverse_lazy('homework_list')
+
+
+def login_user(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
+            if request.GET.get('next'):
+                return redirect(request.GET.get('next'))
+            return redirect('info')
+    else:
+        form = AuthenticationForm()
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'login/login.html', context)
+
+def registration_user(request):
+    if request.method == 'POST':
+        form = RegistrationForm(data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            if request.GET.get('next'):
+                return redirect(request.GET.get('next'))
+            return redirect('info')
+    else:
+        form = RegistrationForm()
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'login/registration.html', context)
+
+def logout_user(request):
+    logout(request)
+    return redirect('info')

@@ -31,6 +31,9 @@ class Basket:
 
     def add(self, product, count=1, update_count=False):
         product_id = str(product.id)
+
+        if product_id in self.basket:
+            return
         if product_id not in self.basket:
             self.basket[product_id] = {
                 'count': 0,
