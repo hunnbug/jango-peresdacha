@@ -1,31 +1,56 @@
 {% extends 'base.html' %}
-{% load static %}
-{% block content %}
-{% block title_name %}
-    Просмотр
-{% endblock %}
 
-<html>
-<head>
-    <title>Предмет: {{ subject.name }}</title>
-</head>
-<body>
-    <h1>Предмет: {{ subject.name }}</h1>
-    {% if subject.image %}
-        <img src="{{ subject.image.url }}" alt="{{ subject.name }}" width="200">
-    {% endif %}
+{% block title %}{{ subjects.name }} - Школа №3{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">Предмет: {{ subjects.name }}</h3>
+            </div>
+            <div class="card-body">
+                <h5>Учителя по этому предмету:</h5>
+                {% if subjects.teachers.all %}
+                    <div class="row">
+                        {% for teacher in subjects.teachers.all %}
+                        <div class="col-md-6 mb-2">
+                            <div class="card bg-light">
+                                <div class="card-body py-2">
+                                    <p class="mb-0">{{ teacher }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        Нет учителей по этому предмету
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
     
-    <h2>Учителя:</h2>
-    <ul>
-    {% for teacher in subject.teachers.all %}
-        <li>{{ teacher }}</li>
-    {% empty %}
-        <li>Нет учителей</li>
-    {% endfor %}
-    </ul>
-    
-    <a href="{% url 'subject_list' %}">↩️ Назад к списку</a>
-    <a href="{% url 'info' %}">🏠 На главную</a>
-</body>
-</html>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Действия</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'subject_update' subjects.pk %}" class="btn btn-warning">
+                        ✏️ Редактировать
+                    </a>
+                    <a href="{% url 'subject_delete' subjects.pk %}" class="btn btn-danger">
+                        🗑️ Удалить
+                    </a>
+                    <a href="{% url 'subject_list' %}" class="btn btn-secondary">
+                        ↩️ Назад к списку
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

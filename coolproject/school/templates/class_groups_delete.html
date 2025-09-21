@@ -1,71 +1,52 @@
 {% extends 'base.html' %}
-{% load static %}
-{% block content %}
-{% block title_name %}
-    Удаление
-{% endblock %}
 
-{% block title %}Удалить класс - Школа{% endblock %}
+{% block title %}Удалить класс - Школа №3{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-danger text-white">
-                    <h4 class="card-title mb-0">Удаление класса</h4>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">⚠️ Удаление класса</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <h5>Вы уверены, что хотите удалить класс?</h5>
+                    <p class="mb-0"><strong>Класс:</strong> {{ class_group.grade }}{{ class_group.letter }}</p>
                 </div>
-                <div class="card-body">
-                    <div class="alert alert-warning">
-                        <i class="bi bi-exclamation-triangle"></i>
-                        <strong>Внимание!</strong> Вы собираетесь удалить класс.
+                
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p><strong>Классный руководитель:</strong> {{ class_group.class_teacher|default:"Не назначен" }}</p>
+                        <p><strong>Кабинет:</strong> {{ class_group.room_number|default:"Не указан" }}</p>
                     </div>
-
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ class_group.grade }}{{ class_group.letter }}</h5>
-                            <p class="card-text">
-                                <strong>Классный руководитель:</strong> 
-                                {% if class_group.class_teacher %}
-                                    {{ class_group.class_teacher.get_full_name }}
-                                {% else %}
-                                    Не назначен
-                                {% endif %}
-                            </p>
-                            <p class="card-text">
-                                <strong>Кабинет:</strong> 
-                                {% if class_group.room_number %}
-                                    {{ class_group.room_number }}
-                                {% else %}
-                                    Не указан
-                                {% endif %}
-                            </p>
-                        </div>
-                    </div>
-
-                    {% if class_group.student_set.all %}
-                    <div class="alert alert-danger">
-                        <i class="bi bi-people"></i>
-                        <strong>В этом классе {{ class_group.student_set.count }} учеников!</strong>
-                        При удалении класса все ученики останутся в системе, но будут без привязки к классу.
-                    </div>
-                    {% endif %}
-
-                    <form method="post">
-                        {% csrf_token %}
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="{% url 'class_group_detail' class_group.pk %}" class="btn btn-secondary me-md-2">
-                                <i class="bi bi-arrow-left"></i> Отмена
-                            </a>
-                            <button type="submit" class="btn btn-danger">
-                                <i class="bi bi-trash"></i> Удалить класс
-                            </button>
-                        </div>
-                    </form>
                 </div>
+
+                {% if class_group.student.all %}
+                <div class="alert alert-danger">
+                    <strong>Внимание!</strong> В этом классе {{ class_group.student.count }} учеников! 
+                    При удалении класса все ученики останутся в системе, но будут без привязки к классу.
+                </div>
+                {% endif %}
+
+                <div class="alert alert-danger">
+                    <strong>Внимание!</strong> Это действие нельзя отменить. 
+                    Все связанные данные будут удалены.
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'class_group_detail' class_group.pk %}" class="btn btn-secondary me-md-2">
+                            ❌ Отмена
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            🗑️ Удалить класс
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
 {% endblock %}

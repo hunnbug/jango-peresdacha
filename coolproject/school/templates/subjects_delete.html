@@ -1,22 +1,38 @@
 {% extends 'base.html' %}
-{% load static %}
-{% block content %}
-{% block title_name %}
-    Удаление
-{% endblock %}
 
-<html>
-<head>
-    <title>Удаление предмета</title>
-</head>
-<body>
-    <h1>Удаление предмета</h1>
-    <p>Вы уверены, что хотите удалить предмет "{{ subjects.name }}"?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">🗑️ Удалить</button>
-        <a href="{% url 'subject_list' %}">❌ Отмена</a>
-    </form>
-</body>
-</html>
+{% block title %}Удалить предмет - Школа №3{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">⚠️ Удаление предмета</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <h5>Вы уверены, что хотите удалить предмет?</h5>
+                    <p class="mb-0"><strong>Название:</strong> {{ subjects.name }}</p>
+                </div>
+                
+                <div class="alert alert-danger">
+                    <strong>Внимание!</strong> Это действие нельзя отменить. 
+                    Все связанные данные будут удалены.
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'subject_list' %}" class="btn btn-secondary me-md-2">
+                            ❌ Отмена
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            🗑️ Удалить предмет
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

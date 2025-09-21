@@ -1,38 +1,98 @@
 {% extends 'base.html' %}
-{% load static %}
-{% block content %}
-{% block title_name %}
-    Просмотр
-{% endblock %}
 
-<html>
-<head>
-    <title>Учитель: {{ teacher }}</title>
-</head>
-<body>
-    <h1>Учитель: {{ teacher }}</h1>
-    {% if teacher.photo %}
-        <img src="{{ teacher.photo.url }}" width="200">
-    {% endif %}
+{% block title %}{{ teacher }} - Школа №3{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">Учитель: {{ teacher }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        {% if teacher.photo %}
+                            <img src="{{ teacher.photo.url }}" class="img-fluid rounded" alt="Фото учителя">
+                        {% else %}
+                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <span class="text-white fs-1">👤</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>ID:</strong></td>
+                                <td>{{ teacher.teacher_id }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ФИО:</strong></td>
+                                <td>{{ teacher.surname }} {{ teacher.first_name }} {{ teacher.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Дата рождения:</strong></td>
+                                <td>{{ teacher.date_of_birth|default:"Не указана" }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Телефон:</strong></td>
+                                <td>{{ teacher.phone|default:"Не указан" }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Email:</strong></td>
+                                <td>{{ teacher.email|default:"Не указан" }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Предмет:</strong></td>
+                                <td>{{ teacher.subject|default:"Не назначен" }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <h5>Классный руководитель:</h5>
+                {% if teacher.classes.all %}
+                    <div class="row">
+                        {% for class in teacher.classes.all %}
+                        <div class="col-md-6 mb-2">
+                            <div class="card bg-light">
+                                <div class="card-body py-2">
+                                    <p class="mb-0">{{ class }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        Не является классным руководителем
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
     
-    <p><strong>ID:</strong> {{ teacher.teacher_id }}</p>
-    <p><strong>ФИО:</strong> {{ teacher.surname }} {{ teacher.first_name }} {{ teacher.last_name }}</p>
-    <p><strong>Дата рождения:</strong> {{ teacher.date_of_birth }}</p>
-    <p><strong>Телефон:</strong> {{ teacher.phone }}</p>
-    <p><strong>Email:</strong> {{ teacher.email }}</p>
-    <p><strong>Предмет:</strong> {{ teacher.subject|default:"Не назначен" }}</p>
-    
-    <h2>Классный руководитель:</h2>
-    <ul>
-    {% for class in teacher.classes.all %}
-        <li>{{ class }}</li>
-    {% empty %}
-        <li>Не является классным руководителем</li>
-    {% endfor %}
-    </ul>
-    
-    <a href="{% url 'teacher_list' %}">↩️ Назад к списку</a>
-    <a href="{% url 'info' %}">🏠 На главную</a>
-</body>
-</html>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Действия</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'teacher_update' teacher.pk %}" class="btn btn-warning">
+                        ✏️ Редактировать
+                    </a>
+                    <a href="{% url 'teacher_delete' teacher.pk %}" class="btn btn-danger">
+                        🗑️ Удалить
+                    </a>
+                    <a href="{% url 'teacher_list' %}" class="btn btn-secondary">
+                        ↩️ Назад к списку
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

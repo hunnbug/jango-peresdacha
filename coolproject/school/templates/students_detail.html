@@ -1,152 +1,120 @@
 {% extends 'base.html' %}
-{% load static %}
-{% block content %}
-{% block title_name %}
-    Просмотр
-{% endblock %}
 
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ student.last_name }} {{ student.first_name }} - Профиль ученика</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Профиль ученика</h1>
-            <div class="btn-group">
-                <a href="{% url 'student_update' student.pk %}" class="btn btn-secondary">
-                    <i class="bi bi-pencil"></i> Редактировать
-                </a>
-                <a href="{% url 'student_delete' student.pk %}" class="btn btn-danger">
-                    <i class="bi bi-trash"></i> Удалить
-                </a>
+{% block title %}{{ student.surname }} {{ student.first_name }} - Школа №3{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                {% if student.photo %}
+                    <img src="{{ student.photo.url }}" alt="Фото ученика" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% else %}
+                    <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 150px; height: 150px;">
+                        <span class="text-white fs-1">👤</span>
+                    </div>
+                {% endif %}
+                <h4>{{ student.surname }} {{ student.first_name }} {{ student.last_name }}</h4>
+                <p class="text-muted">ID: {{ student.student_id }}</p>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body text-center">
-                        {% if student.photo %}
-                        <img src="{{ student.photo.url }}" alt="Фото ученика" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                        {% else %}
-                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 150px; height: 150px;">
-                            <i class="bi bi-person" style="font-size: 3rem;"></i>
-                        </div>
-                        {% endif %}
-                        <h4>{{ student.last_name }} {{ student.first_name }} {{ student.surname }}</h4>
-                        <p class="text-muted">ID: {{ student.student_id }}</p>
-                    </div>
-                </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Личная информация</h5>
             </div>
-
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Личная информация</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <table class="table table-borderless">
-                                    <tr>
-                                        <th width="40%">Фамилия:</th>
-                                        <td>{{ student.last_name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Имя:</th>
-                                        <td>{{ student.first_name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Отчество:</th>
-                                        <td>{{ student.surname }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Дата рождения:</th>
-                                        <td>{{ student.date_of_birth|date:"d.m.Y" }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Возраст:</th>
-                                        <td>{% widthratio student.date_of_birth|timesince 31536000 1 %} лет</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="col-md-6">
-                                <table class="table table-borderless">
-                                    <tr>
-                                        <th width="40%">Класс:</th>
-                                        <td>
-                                            {% if student.class_group %}
-                                                {{ student.class_group.grade }}{{ student.class_group.letter }}
-                                            {% else %}
-                                                <span class="text-muted">Не назначен</span>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Телефон:</th>
-                                        <td>
-                                            {% if student.phone %}
-                                                {{ student.phone }}
-                                            {% else %}
-                                                <span class="text-muted">Не указан</span>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Адрес:</th>
-                                        <td>
-                                            {% if student.address %}
-                                                {{ student.address }}
-                                            {% else %}
-                                                <span class="text-muted">Не указан</span>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-
-                        <h6 class="mt-4">Информация о родителях</h6>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
                         <table class="table table-borderless">
                             <tr>
-                                <th width="30%">Родитель:</th>
+                                <td><strong>Фамилия:</strong></td>
+                                <td>{{ student.surname }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Имя:</strong></td>
+                                <td>{{ student.first_name }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Отчество:</strong></td>
+                                <td>{{ student.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Дата рождения:</strong></td>
+                                <td>{{ student.date_of_birth|date:"d.m.Y" }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Класс:</strong></td>
                                 <td>
-                                    {% if student.parent_name %}
-                                        {{ student.parent_name }} {{ student.parent_middlename }}
+                                    {% if student.class_group %}
+                                        {{ student.class_group.grade }}{{ student.class_group.letter }}
                                     {% else %}
-                                        <span class="text-muted">Не указан</span>
+                                        <span class="text-muted">Не назначен</span>
                                     {% endif %}
                                 </td>
                             </tr>
                             <tr>
-                                <th>Телефон родителя:</th>
-                                <td>
-                                    {% if student.parent_phone %}
-                                        {{ student.parent_phone }}
-                                    {% else %}
-                                        <span class="text-muted">Не указан</span>
-                                    {% endif %}
-                                </td>
+                                <td><strong>Телефон:</strong></td>
+                                <td>{{ student.phone|default:"Не указан" }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Адрес:</strong></td>
+                                <td>{{ student.address|default:"Не указан" }}</td>
                             </tr>
                         </table>
                     </div>
                 </div>
+
+                <hr>
+
+                <h6>Информация о родителях</h6>
+                <table class="table table-borderless">
+                    <tr>
+                        <td><strong>Родитель:</strong></td>
+                        <td>
+                            {% if student.parent_name %}
+                                {{ student.parent_name }} {{ student.parent_middlename }}
+                            {% else %}
+                                <span class="text-muted">Не указан</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Телефон родителя:</strong></td>
+                        <td>{{ student.parent_phone|default:"Не указан" }}</td>
+                    </tr>
+                </table>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="mt-3">
-            <a href="{% url 'student_list' %}" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left"></i> Назад к списку
-            </a>
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Действия</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2 d-md-flex">
+                    <a href="{% url 'student_update' student.pk %}" class="btn btn-warning">
+                        ✏️ Редактировать
+                    </a>
+                    <a href="{% url 'student_delete' student.pk %}" class="btn btn-danger">
+                        🗑️ Удалить
+                    </a>
+                    <a href="{% url 'student_list' %}" class="btn btn-secondary">
+                        ↩️ Назад к списку
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>
 {% endblock %}

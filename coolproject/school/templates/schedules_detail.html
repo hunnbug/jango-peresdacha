@@ -1,110 +1,80 @@
 {% extends 'base.html' %}
-{% load static %}
+
+{% block title %}{{ schedule.class_group.grade }}{{ schedule.class_group.letter }} - {{ schedule.get_day_of_week_display }} - Школа №3{% endblock %}
+
 {% block content %}
-{% block title_name %}
-    Просмотр
-{% endblock %}
-
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Детали урока - Школа</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Детали урока</h1>
-            <div class="btn-group">
-                <a href="{% url 'schedule_update' schedule.pk %}" class="btn btn-secondary">
-                    <i class="bi bi-pencil"></i> Редактировать
-                </a>
-                <a href="{% url 'schedule_delete' schedule.pk %}" class="btn btn-danger">
-                    <i class="bi bi-trash"></i> Удалить
-                </a>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">Детали урока</h3>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Основная информация</h5>
-                    </div>
-                    <div class="card-body">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
                         <table class="table table-borderless">
                             <tr>
-                                <th width="40%">Класс:</th>
+                                <td><strong>Класс:</strong></td>
                                 <td>{{ schedule.class_group.grade }}{{ schedule.class_group.letter }}</td>
                             </tr>
                             <tr>
-                                <th>День недели:</th>
+                                <td><strong>День недели:</strong></td>
                                 <td>{{ schedule.get_day_of_week_display }}</td>
                             </tr>
                             <tr>
-                                <th>Время:</th>
+                                <td><strong>Время:</strong></td>
                                 <td>{{ schedule.start_time|time:"H:i" }} - {{ schedule.end_time|time:"H:i" }}</td>
                             </tr>
                             <tr>
-                                <th>Кабинет:</th>
+                                <td><strong>Кабинет:</strong></td>
                                 <td>{{ schedule.room }}</td>
                             </tr>
                         </table>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Преподаватель и предмет</h5>
-                    </div>
-                    <div class="card-body">
+                    <div class="col-md-6">
                         <table class="table table-borderless">
                             <tr>
-                                <th width="40%">Предмет:</th>
+                                <td><strong>Предмет:</strong></td>
                                 <td>{{ schedule.subject.name }}</td>
                             </tr>
                             <tr>
-                                <th>Преподаватель:</th>
-                                <td>{{ schedule.teacher.get_full_name }}</td>
+                                <td><strong>Преподаватель:</strong></td>
+                                <td>{{ schedule.teacher }}</td>
                             </tr>
                             <tr>
-                                <th>Должность:</th>
-                                <td>
-                                    {% if schedule.teacher.position %}
-                                        {{ schedule.teacher.position }}
-                                    {% else %}
-                                        <span class="text-muted">Не указана</span>
-                                    {% endif %}
-                                </td>
+                                <td><strong>Телефон учителя:</strong></td>
+                                <td>{{ schedule.teacher.phone|default:"Не указан" }}</td>
                             </tr>
                             <tr>
-                                <th>Контакт:</th>
-                                <td>
-                                    {% if schedule.teacher.phone %}
-                                        {{ schedule.teacher.phone }}
-                                    {% else %}
-                                        <span class="text-muted">Не указан</span>
-                                    {% endif %}
-                                </td>
+                                <td><strong>Email учителя:</strong></td>
+                                <td>{{ schedule.teacher.email|default:"Не указан" }}</td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="mt-3">
-            <a href="{% url 'schedule_list' %}" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left"></i> Назад к списку
-            </a>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Действия</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'schedule_update' schedule.pk %}" class="btn btn-warning">
+                        ✏️ Редактировать
+                    </a>
+                    <a href="{% url 'schedule_delete' schedule.pk %}" class="btn btn-danger">
+                        🗑️ Удалить
+                    </a>
+                    <a href="{% url 'schedule_list' %}" class="btn btn-secondary">
+                        ↩️ Назад к списку
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>
 {% endblock %}
