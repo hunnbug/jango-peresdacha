@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Student, Teacher, Subject, Class_group, Grade, Attendance, Homework, Schedule
+from .models import *
 
 # Register your models here.
 
@@ -35,3 +35,6 @@ class HomeworkAdmin(admin.ModelAdmin):
 class ScheduleAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    pass

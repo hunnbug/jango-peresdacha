@@ -70,6 +70,14 @@
                         Не является классным руководителем
                     </div>
                 {% endif %}
+
+                {% comment %} {% if request.user.is_authentificated %} {% endcomment %}
+                <form method="post" action="{% url 'basket_add' teacher.pk %}">
+                {% csrf_token %}
+                {{ form_basket }}
+                <button type="submit" class="btn btn-success">Добавить в корзину</button>
+                </form>
+                {% comment %} {% endif %} {% endcomment %}
             </div>
         </div>
     </div>

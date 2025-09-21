@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from .models import *
 from .forms import *
+from basket.forms import BasketAddProductForm
 
 def info_view(request):
     return render(request, 'info.html')
@@ -46,6 +47,11 @@ class TeacherDetailView(DetailView):
     model = Teacher
     template_name = 'teachers_detail.html'
     context_object_name = 'teacher'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form_basket'] = BasketAddProductForm()
+        return context
 
 class TeacherDeleteView(DeleteView):
     model = Teacher
