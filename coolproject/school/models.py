@@ -9,6 +9,7 @@ MAX_LENGTH_PHONE = 11
 MAX_LENGTH_CODE = 10
 MAX_LENGTH_ROOM = 4
 MAX_LENGTH_LETTER = 1
+MAX_LENGTH = 255
 
 
 class Subject(models.Model):
@@ -166,12 +167,7 @@ class Homework(models.Model):
 
     def __str__(self):
         return f"{self.subject} {self.due_date} {self.description}"
-    
-from django.db import models
 
-# Create your models here.
-
-MAX_LENGTH = 255
 
 class Order(models.Model):
     SHOP = "SH"
@@ -237,7 +233,7 @@ class Pos_order(models.Model):
     discount = models.PositiveIntegerField(default=0, verbose_name='Скидка на позицию')
 
     def __str__(self):
-        return f'{self.order.pk} {self.clothes.name} ({self.order.buyer_firstname} {self.order.buyer_name})'
+        return f'{self.order.pk} {self.teacher} ({self.order.buyer_firstname} {self.order.buyer_name})'
 
     class Meta:
         verbose_name = 'Позиция заказа'

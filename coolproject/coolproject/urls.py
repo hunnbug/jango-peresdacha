@@ -22,10 +22,13 @@ from school import views as school_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),
     path('info/', school_views.info_view, name='info'),
     path('', school_views.info_view, name='info'),
 
     path('basket/', include('basket.urls')),
+    
+    path('api/', include('api.urls')),
 
     path('login/', school_views.login_user, name='login_page'),
     path('register/', school_views.registration_user, name='register_page'),
