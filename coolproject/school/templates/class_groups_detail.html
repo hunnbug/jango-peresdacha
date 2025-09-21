@@ -1,3 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block title_name %}
+    Просмотр
+{% endblock %}
+
 {% block title %}{{ class_group.grade }}{{ class_group.letter }} - Детали класса{% endblock %}
 
 {% block content %}
@@ -85,4 +92,5 @@
         </a>
     </div>
 </div>
+{% endblock %}
 {% endblock %}

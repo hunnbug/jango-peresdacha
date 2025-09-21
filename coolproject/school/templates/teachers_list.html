@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block content %}
+{% block title_name %}
+    Список 
+{% endblock %}
+
+{% extends 'base.html' %}
+{% load static %}
 
 {% block title_name %}
     Список учителей
@@ -24,4 +31,5 @@
     {% endfor %}
     </ul>
     <a href="{% url 'info' %}">🏠 На главную</a>
+{% endblock %}
 {% endblock %}

@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block title_name %}
+    Создание
+{% endblock %}
+
 <html>
 <head>
     <title>Добавить учителя</title>
@@ -13,3 +19,4 @@
     <a href="{% url 'teacher_list' %}">↩️ Назад к списку</a>
 </body>
 </html>
+{% endblock %}

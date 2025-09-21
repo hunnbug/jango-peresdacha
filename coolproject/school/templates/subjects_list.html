@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block title_name %}
+    Список 
+{% endblock %}
+
 <html>
 <head>
     <title>Список предметов</title>
@@ -24,3 +30,4 @@
     <a href="{% url 'info' %}">🏠 На главную</a>
 </body>
 </html>
+{% endblock %}

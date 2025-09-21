@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block title_name %}
+    Просмотр
+{% endblock %}
+
 <html>
 <head>
     <title>Учитель: {{ teacher }}</title>
@@ -29,3 +35,4 @@
     <a href="{% url 'info' %}">🏠 На главную</a>
 </body>
 </html>
+{% endblock %}
