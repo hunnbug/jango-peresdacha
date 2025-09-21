@@ -8,7 +8,6 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        {% comment %} к сожалению будет на англе, но зато быстро {% endcomment %}
         {{ form.as_p }}
          
         <button type="submit">💾 Сохранить</button>

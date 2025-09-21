@@ -6,7 +6,7 @@
 <body>
     <h1>Учитель: {{ teacher }}</h1>
     {% if teacher.photo %}
-        <img src="{{ teacher.photo.url }}" alt="{{ teacher }}" width="200">
+        <img src="{{ teacher.photo.url }}" width="200">
     {% endif %}
     
     <p><strong>ID:</strong> {{ teacher.teacher_id }}</p>

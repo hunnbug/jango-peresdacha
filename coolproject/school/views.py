@@ -37,7 +37,6 @@ class SubjectUpdateView(UpdateView):
     success_url = reverse_lazy('subject_list')
     fields = ['name']
 
-# Teacher Views
 class TeacherListView(ListView):
     model = Teacher
     template_name = 'teachers_list.html'
@@ -68,7 +67,6 @@ class TeacherUpdateView(UpdateView):
     context_object_name = 'teacher'
     success_url = reverse_lazy('teacher_list')
 
-# Class_group Views
 class ClassGroupListView(ListView):
     model = Class_group
     template_name = 'class_groups_list.html'
@@ -99,7 +97,6 @@ class ClassGroupUpdateView(UpdateView):
     context_object_name = 'class_group'
     success_url = reverse_lazy('class_group_list')
 
-# Student Views
 class StudentListView(ListView):
     model = Student
     template_name = 'students_list.html'
@@ -130,7 +127,6 @@ class StudentUpdateView(UpdateView):
     context_object_name = 'student'
     success_url = reverse_lazy('student_list')
 
-# Schedule Views
 class ScheduleListView(ListView):
     model = Schedule
     template_name = 'schedules_list.html'
@@ -161,7 +157,6 @@ class ScheduleUpdateView(UpdateView):
     context_object_name = 'schedule'
     success_url = reverse_lazy('schedule_list')
 
-# Grade Views
 class GradeListView(ListView):
     model = Grade
     template_name = 'grades_list.html'
@@ -192,7 +187,6 @@ class GradeUpdateView(UpdateView):
     context_object_name = 'grade'
     success_url = reverse_lazy('grade_list')
 
-# Attendance Views
 class AttendanceListView(ListView):
     model = Attendance
     template_name = 'attendances_list.html'
@@ -223,7 +217,6 @@ class AttendanceUpdateView(UpdateView):
     context_object_name = 'attendance'
     success_url = reverse_lazy('attendance_list')
 
-# Homework Views
 class HomeworkListView(ListView):
     model = Homework
     template_name = 'homeworks_list.html'

@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Список учителей</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+    Список учителей
+{% endblock %}
+
+{% block content %}
     <h1>Список учителей</h1>
     <a href="{% url 'teacher_create' %}">➕ Добавить учителя</a>
     <ul>
     {% for teacher in teachers %}
         <li>
             {% if teacher.photo %}
-                <img src="{{ teacher.photo.url }}" alt="{{ teacher }}" width="50">
+                <img src="{{ teacher.photo.url }}" width="50">
             {% endif %}
             {{ teacher }} - {{ teacher.subject|default:"Не назначен" }}
             <a href="{% url 'teacher_detail' teacher.pk %}">👁️ Просмотр</a>
@@ -22,5 +24,4 @@
     {% endfor %}
     </ul>
     <a href="{% url 'info' %}">🏠 На главную</a>
-</body>
-</html>
+{% endblock %}
