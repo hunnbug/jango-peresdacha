@@ -24,7 +24,7 @@ class Subject(models.Model):
 
 
 class Teacher(models.Model):
-    teacher_id = models.CharField(max_length=MAX_LENGTH_ID, unique=True)
+    # teacher_id = models.CharField(max_length=MAX_LENGTH_ID, unique=True)
     first_name = models.CharField(max_length=MAX_LENGTH_SHORT)
     surname = models.CharField(max_length=MAX_LENGTH_SHORT)
     last_name = models.CharField(max_length=MAX_LENGTH_SHORT)

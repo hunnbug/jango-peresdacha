@@ -13,7 +13,6 @@ class TeacherSerializer(serializers.ModelSerializer):
             'email',
             'date_of_birth',
             'price',
-            'subject'
         ]
 
 class ClassGroupSerializer(serializers.ModelSerializer):

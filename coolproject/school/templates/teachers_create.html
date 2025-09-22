@@ -13,7 +13,7 @@
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     
-                    <div class="row">
+                    {% comment %} <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="{{ form.teacher_id.id_for_label }}" class="form-label">
                                 ID учителя <span class="text-danger">*</span>
@@ -24,7 +24,7 @@
                                 {{ form.teacher_id.errors }}
                             </div>
                             {% endif %}
-                        </div>
+                        </div> {% endcomment %}
 
                         <div class="col-md-6 mb-3">
                             <label for="{{ form.photo.id_for_label }}" class="form-label">

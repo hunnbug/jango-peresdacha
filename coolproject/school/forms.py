@@ -12,7 +12,7 @@ class TeacherForm(forms.ModelForm):
     class Meta:
         model = Teacher
         fields = [
-            'teacher_id', 'first_name', 'surname', 'last_name', 
+            'first_name', 'surname', 'last_name', 
             'date_of_birth', 'phone', 'email', 'subject', 'photo', 'price'
         ]
         widgets = {
